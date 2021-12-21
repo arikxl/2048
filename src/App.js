@@ -1,10 +1,13 @@
+import Board from "./components/Board";
 
 function App() {
+
   return (
-    <div className="App">
-        2048
-    </div>
+      <Board />  
   );
-}
+
+};
+
+
 
 export default App;
