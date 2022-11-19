@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Block from './Block';
 
 import styled from 'styled-components';
+import { initialize } from '../service/service';
 
 const GridStyle = styled.section`
   width: max-content;
@@ -12,7 +13,13 @@ const GridStyle = styled.section`
   background-color: grey;
 `;
 
-const Grid = ({data}) => {
+const Grid = ({data, setData}) => {
+
+
+    useEffect(() => {
+        initialize(data, setData)
+    },[])
+
     return (
         <GridStyle>
             {data.map((row, oneIndex) => {

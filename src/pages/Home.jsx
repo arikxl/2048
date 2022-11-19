@@ -13,7 +13,7 @@ const Home = () => {
 
     return (
         <div>
-            <Grid data={data}/>
+            <Grid data={data} setData={setData}/>
         </div>
     )
 }
