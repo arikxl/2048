@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import Buttons from '../components/Buttons';
 import Grid from '../components/Grid'
+import { swipeDown, swipeLeft, swipeRight, swipeUp } from '../service/move';
 
 const Home = () => {
 
@@ -14,6 +16,11 @@ const Home = () => {
     return (
         <div>
             <Grid data={data} setData={setData}/>
+
+            <Buttons data={data} setData={setData}/>
+
+
+
         </div>
     )
 }
