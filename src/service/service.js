@@ -1,4 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
+import { swipeDown, swipeLeft, swipeRight, swipeUp } from "./move";
+import {checkIfGameOver} from "./move";
 
 export const getColors = (num) => {
     switch (num) {
@@ -40,7 +42,7 @@ export const initialize = (data, setData) => {
 }
 
 
-export const addNumber = (newGrid) => {
+export const addNumber = (newGrid, data) => {
     let added = false;
     let gridFull = false;
     let attempts = 0;
@@ -51,12 +53,52 @@ export const addNumber = (newGrid) => {
         
         let rand1 = ~~(Math.random() * 4)
         let rand2 = ~~(Math.random() * 4)
-        attempts++;
         if (newGrid[rand1][rand2] === 0 ) {
-            newGrid[rand1][rand2] = Math.random() > 0.3 ? 2 : 4;
-            added = true; 
+          newGrid[rand1][rand2] = Math.random() > 0.3 ? 2 : 4;
+          added = true; 
+        }
+        attempts++;
+        if (attempts > 10) {
+          gridFull = true;
+          let gameOver = checkIfGameOver(data);
+          if (gameOver) {
+            alert("game over");
+            // setGameOver(true);
+          }
+          // setGameOver(true);
         }
     }
 
 }
 
+//  // Check Gameover
+// export const checkIfGameOver = (data) => {
+//  console.log('CHECK')
+ 
+//   // let original = cloneDeep(data);
+//   let checker = swipeLeft(data, true);
+
+//   if (JSON.stringify(data) !== JSON.stringify(checker)) {
+//     return false;
+//   }
+
+//   let checker2 = swipeDown(true);
+
+//   if (JSON.stringify(data) !== JSON.stringify(checker2)) {
+//     return false;
+//   }
+
+//   let checker3 = swipeRight(true);
+
+//   if (JSON.stringify(data) !== JSON.stringify(checker3)) {
+//     return false;
+//   }
+
+//   let checker4 = swipeUp(true);
+
+//   if (JSON.stringify(data) !== JSON.stringify(checker4)) {
+//     return false;
+//   }
+
+//   return true;
+// };

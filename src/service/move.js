@@ -3,43 +3,35 @@ import { addNumber } from "./service";
 
 
 export const handleKeyDown = (event, data, setData) => {
-    
     // if (gameOver) {
     //     return;
     // }
     switch (event.keyCode) {
         case 38:
-            // console.table(data);
             swipeUp(data, setData);
-            // console.table(data);
             break;
         case 40:
-            // console.table(data);
             swipeDown(data, setData);
-            // console.table(data);
             break;
         case 37:
-            // console.table(data);
             swipeLeft(data, setData);
-            // console.table(data);
             break;
         case 39:
-            // console.table(data);
             swipeRight(data, setData);
-            // console.table(data);
             break;
         default:
             break;
     }
 
-    // let gameOverr = checkIfGameOver();
-    // if (gameOverr) {
-    //     setGameOver(true);
-    // }
+    let gameOver = checkIfGameOver(data, setData);
+    if (gameOver) {
+        // setGameOver(true);
+        alert('test')
+    }
 };
 
 // export const swipeLeft = (dummy) => {
-export const swipeLeft = (data, setData ) => {
+export const swipeLeft = ( data, setData, dummy ) => {
         let oldGrid = data;
         let newArray = cloneDeep(data);
         
@@ -75,18 +67,18 @@ export const swipeLeft = (data, setData ) => {
             }
         }
         if (JSON.stringify(oldGrid) !== JSON.stringify(newArray)) {
-            addNumber(newArray);
+            addNumber(newArray, data);
         }
-        // if (dummy) {
-            //   return newArray;
-            // } else {
-                //   setData(newArray);
-                // }
-        setData(newArray);
+        if (dummy ) {
+              return newArray;
+            } else {
+              setData(newArray);
+            }
+        // setData(newArray);
 };
 
 // export const swipeRight = (dummy) => {
-export const swipeRight = (data, setData) => {
+export const swipeRight = (data, setData, dummy) => {
     let oldData = data;
     let newArray = cloneDeep(data);
 
@@ -122,18 +114,18 @@ export const swipeRight = (data, setData) => {
       }
     }
     if (JSON.stringify(newArray) !== JSON.stringify(oldData)) {
-      addNumber(newArray);
+      addNumber(newArray, data);
     }
-    // if (dummy) {
-    //   return newArray;
-    // } else {
-    //   setData(newArray);
-    // }
-    setData(newArray);
+    if (dummy) {
+      return newArray;
+    } else {
+      setData(newArray);
+    }
+    // setData(newArray);
   };
 
 // export const swipeDown = (dummy) => {
-export const swipeDown = (data, setData) => {
+export const swipeDown = (data, setData, dummy) => {
     let b = cloneDeep(data);
     let oldData = JSON.parse(JSON.stringify(data));
     for (let i = 3; i >= 0; i--) {
@@ -167,18 +159,18 @@ export const swipeDown = (data, setData) => {
       }
     }
     if (JSON.stringify(b) !== JSON.stringify(oldData)) {
-      addNumber(b);
+      addNumber(b, data);
     }
-    // if (dummy) {
-    //   return b;
-    // } else {
-    //   setData(b);
-    // }
-    setData(b);
+    if (dummy) {
+      return b;
+    } else {
+      setData(b);
+    }
+    // setData(b);
   };
 
 // export  const swipeUp = (dummy) => {
-export  const swipeUp = (data, setData) => {
+export  const swipeUp = (data, setData, dummy) => {
     let b = cloneDeep(data);
     let oldData = JSON.parse(JSON.stringify(data));
     for (let i = 0; i < 4; i++) {
@@ -212,12 +204,44 @@ export  const swipeUp = (data, setData) => {
       }
     }
     if (JSON.stringify(oldData) !== JSON.stringify(b)) {
-      addNumber(b);
+      addNumber(b, data);
     }
-    // if (dummy) {
-    //   return b;
-    // } else {
-    //   setData(b);
-    // }
-    setData(b);
+    if (dummy) {
+      return b;
+    } else {
+      setData(b);
+    }
+    // setData(b);
   };
+
+
+
+    // Check Gameover
+  export  const checkIfGameOver = (data, setData) => {
+      console.log("CHECKING GAME OVER");
+      // let original = cloneDeep(data);
+      let dummy =true;
+
+      let checker = swipeLeft(data, setData, dummy);
+ 
+      if (JSON.stringify(data) !== JSON.stringify(checker)) {
+        return false;
+      } 
+  
+      let checker2 = swipeDown(data, setData,true);
+      if (JSON.stringify(data) !== JSON.stringify(checker2)) {
+        return false;
+      }
+  
+      let checker3 = swipeRight(data, setData,true);
+      if (JSON.stringify(data) !== JSON.stringify(checker3)) {
+        return false;
+      }
+  
+      let checker4 = swipeUp(data, setData,true);
+      if (JSON.stringify(data) !== JSON.stringify(checker4)) {
+        return false;
+      }
+  
+      return true;
+    };
